@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 
 # Load trained Random Forest model
-model = joblib.load(r'C:\Users\krish\OneDrive\Desktop\JupyterNotebooks\SalaryPredictionModel\salaryPredictionRf.pkl')
+model = joblib.load('salaryPredictionRf.pkl')
 
 
 # App Title
