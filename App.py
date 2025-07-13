@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import locale
-locale.setlocale(locale.LC_ALL, 'en_IN')
 
 # Load trained Random Forest model
 model = joblib.load(r'C:\Users\krish\OneDrive\Desktop\JupyterNotebooks\SalaryPredictionModel\salaryPredictionRf.pkl')
@@ -91,11 +89,27 @@ def encode_inputs(df):
 # Encode input
 encoded_input = encode_inputs(input_df)
 
+# Function to format numbers in Indian style
+def indian_format(n):
+    s = str(int(n))
+    if len(s) <= 3:
+        return s
+    else:
+        last_three = s[-3:]
+        other = s[:-3]
+        parts = []
+        while len(other) > 2:
+            parts.append(other[-2:])
+            other = other[:-2]
+        if other:
+            parts.append(other)
+        return ','.join(parts[::-1]) + ',' + last_three
+
 # Prediction button
 if st.button('Predict Salary'):
     salary = model.predict(encoded_input)
-    formatted_salary = locale.format_string("%d", int(salary[0]), grouping=True)
-    st.subheader(f"Predicted Salary: ₹{formatted_salary}")
+    formatted_salary = indian_format(salary[0])
+    st.subheader(f"🤑 Predicted Salary: ₹{formatted_salary}")
 
 # Footer
 st.markdown("---")
