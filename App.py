@@ -76,13 +76,8 @@ def encode_inputs(df):
     df['Gender'] = df['Gender'].map(gender_map)
     df['Education Level'] = df['Education Level'].map(education_map)
     
-    job_titles = [
-        'Software Engineer', 'Data Analyst', 'Senior Manager',
-        'Sales Associate', 'Director', 'Sales Executive',
-        'Marketing Manager', 'Financial Manager', 'Director of Marketing'
-    ]
     job_title_map = {title: idx for idx, title in enumerate(job_titles)}
-    df['Job Title'] = df['Job Title'].map(job_title_map).fillna(0)  # unknown titles mapped as 0
+    df['Job Title'] = df['Job Title'].map(job_title_map).fillna(0)
     
     return df
 
@@ -109,7 +104,7 @@ def indian_format(n):
 if st.button('Predict Salary'):
     salary = model.predict(encoded_input)
     formatted_salary = indian_format(salary[0])
-    st.subheader(f"🤑 Predicted Salary: ₹{formatted_salary}")
+    st.subheader(f"Predicted Salary: ₹{formatted_salary}")
 
 # Footer
 st.markdown("---")
